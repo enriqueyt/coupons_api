@@ -43,7 +43,7 @@ function addCoupons (req, res){
 function deleteCoupons (req, res){
 
 	stripeServices
-		.deleteCoupons(req, function(err, result){
+		.deleteCoupons(req.allParams(), function(err, result){
 			return res.json(result);
 		});
 		
@@ -52,7 +52,7 @@ function deleteCoupons (req, res){
 function updateCoupons (req, res){
 
 	stripeServices
-		.updateCoupons(req, function(err, result){
+		.updateCoupons(req.allParams(), function(err, result){
 			return res.json(result);
 		});
 

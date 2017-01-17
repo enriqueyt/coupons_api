@@ -54,7 +54,7 @@ function deleteCoupons (req, done){
 
 	stripe
 		.coupons
-		.del("25OFF")
+		.del(req.id)
 		.then(function(res) {
 			console.log(res)
 		  return done(false, res);
@@ -69,7 +69,7 @@ function updateCoupons (req, done){
 
 	stripe
 		.coupons
-		.update("25OFF", {
+		.update(req.id, {
 	  		metadata: {
 	  			order_id: "6735"
 	  		}
