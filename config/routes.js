@@ -46,7 +46,12 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
   ,
-  'get /list' : 'CouponsController.listCoupons',
+
+  'get /list': {
+     controller: 'CouponsController',
+     action: 'listCoupons',
+     cors: false
+  },
 
   'get /balance' : 'CouponsController.getBalance',
 

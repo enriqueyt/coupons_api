@@ -15,9 +15,9 @@ function getBalance (done){
 	stripe
 		.balance
 		.retrieve()
-		.then(function(balance) {
-		  console.log(balance)
-		  return done(false, balance);
+		.then(function(res) {
+		  console.log(res)
+		  return done(false, res);
 		})
 		.catch(function(err) {
 		  return done(true, err);		  
@@ -25,13 +25,12 @@ function getBalance (done){
 };
 
 function getCoupons (req, done){
-	console.log(req)
 
 	stripe
 		.coupons
-		.retrieve("25OFF")
-		.then(function(err, coupon) {
-	    	return done(false, coupon)
+		.retrieve(req.id)
+		.then(function(res) {
+	    	return done(false, res)
 	  	})
 	  	.catch(function(err) {
 		  	return done(true, err);		  
@@ -39,21 +38,15 @@ function getCoupons (req, done){
 };
 
 function addCoupons (req, done){
-	console.log(req)
 
 	stripe
 		.coupons
-		.create({
-		  	percent_off: 25,
-		  	duration: 'repeating',
-		  	duration_in_months: 3,
-		  	id: '25OFF'
-		})
-		.then(function(coupon) {
-		  	return done(false, coupon);
+		.create(req.body)
+		.then(function(res) {
+		  	return done(false, res);
 		})
 		.catch(function(err) {
-		  	return done(true, coupon);
+		  	return done(true, err);
 		});
 };
 
@@ -63,11 +56,12 @@ function deleteCoupons (req, done){
 		.coupons
 		.del("25OFF")
 		.then(function(res) {
-		  return done(false, coupon);
+			console.log(res)
+		  return done(false, res);
 		})
 		.catch(function(err) {
 			console.log(err)
-		  	return done(true, coupon);
+		  	return done(true, err);
 		});
 };
 
@@ -81,7 +75,7 @@ function updateCoupons (req, done){
 	  		}
 		})
 		.then(function(res) {
-		  return done(false, coupon);
+		  return done(false, res);
 		})
 		.catch(function(err) {
 		  	console.log(err)
@@ -97,11 +91,12 @@ function listCoupons (req, done){
 		.list({ 
   			limit: req.limit 
   		})
-  		.then(function(err, coupons) {
-  			return done(false, coupons);
+  		.then(function(res) {
+  			return done(false, res.data);
   		})
   		.catch(function(err) {
-		  console.log(err)
+  			console.log('listCoupons')
+		  	console.log(err)
 		 	return done(true, err);
 		});
 };

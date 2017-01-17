@@ -27,9 +27,9 @@ function getBalance (req, res){
 function getCoupons (req, res){
 
 	stripeServices
-		.getCoupons(.allParams(), function(err, result){
+		.getCoupons(req.allParams(), function(err, result){
 			return res.json(result);
-		})
+		});
 };
 
 function addCoupons (req, res){
@@ -43,7 +43,7 @@ function addCoupons (req, res){
 function deleteCoupons (req, res){
 
 	stripeServices
-		.addCoupons(req, function(err, result){
+		.deleteCoupons(req, function(err, result){
 			return res.json(result);
 		});
 		
